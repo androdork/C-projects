@@ -1,0 +1,88 @@
+#include<iostream>
+using namespace std;
+
+bool test(int q[], int c) { // Finish this code
+	static int mp[3][3] = { { 0,2,1 },  	 // Man#0's preferences
+							{ 0,2,1 },		// Man#1's preferences
+							{ 1,2,0 } };	// Man#2's preferences
+						
+	static int wp[3][3] = { { 2,1,0 },		// Woman#0's preferences
+							{ 0,1,2 },		// Woman#1's preferences
+							{ 2,0,1 } };	 // Woman#2's preferences
+
+	/*Similar to 1D Queens, use a loop to check the array.
+	  Inside the loop we chould check for 3 conditions
+	  First condition checks is the same women is married to two different man *hint we need to check if two things are equal*
+	  Second condition checks if (Man#i) and (Man#c's wife) both like each other more than their own spouse
+	  Third condition checks if (Man#c) and (Man#i's wife) both like each other more than their own spouse
+
+	  mp[i][j] tells you how much Man#i likes Woman#j. (0 = favorite; 2 = least favorite) 
+	  wp[i][j] tells you how much Woman#i likes Man#j.
+
+	  mp[i][q[i]] tells you how much Man#i likes his own wife. 
+	  mp[i][q[c]] tells you how much Man#i likes Man#c's wife. 
+	  wp[q[i]][i] tells you how much Man#i's wife likes Man#i. 
+	  wp[q[i]][c] tells you how much Man#i's wife likes Man#c. 
+	  If mp[i][q[c]] < mp[i][q[i]], it means that Man#i likes Man#c's wife more than his own wife
+	*/
+	       
+	    for(int i=0; i<(c+1); i++) { 
+	        //if((q[1]==q[0])||(q[2]==q[1])||(q[2]==q[0]))return false;
+	        //if(((i>0)&&(q[i]==q[i-1]))||((i==2)&&(q[i]==q[i-2]))) return false;
+	        if(i>0){
+	            if(q[i]==q[i-1])return false;
+	        }
+	        if(i==2){
+	            if(q[2]==q[0])return false;
+	        }
+	        //goto nextRow;//1st condition
+            if((mp[i][q[c]] < mp[i][q[i]])&&(wp[q[c]][i] < wp[q[c]][c])) return false; //2nd condition
+            if((mp[c][q[i]] < mp[c][q[c]])&&(wp[q[i]][c] < wp[q[i]][i])) return false; //3rd condition      
+        }
+        return true; //true means tests passed
+    }
+
+	//if we pass the loop, what do we return?
+
+void print(int q[]) {
+	static int solution = 0;
+	cout << "Solution #" << ++solution << ":\nMan\tWoman\n";
+	//Finish this print function
+	for(int i=0; i<3; i++){
+	    cout<<i<<"\t"<<q[i]<<"\n";
+	}
+}
+
+
+int main() {
+	//Write the main function.
+	//The main function is exactly the same as 1D Queens. EXCEPT the array size is different.
+	int q[3], c=0; // arr[column] = row 
+    q[0]=0;//b[0][0]=1 
+    int solution=0; //already in print function
+    
+    while(c<4){ //nextCol
+        c++;
+        q[c]=-1; // r=-1 
+        if (c==3){
+            solution++;
+            print(q); //goto print;
+            if(solution==3) return 0; //test that limits solutions 
+            c--;//backtrack(c); //goto backtrack;
+            if(c==-1) return 0; 
+        }  
+    
+    
+        while(q[c]<5){ //nextRow: 
+            q[c]++; //r++
+            if(q[c]==3){
+                q[c]=0;
+                c--;//backtrack(c);//goto backtrack;
+                if(c==-1) return 0; 
+            }
+            else if(test(q, c)) break; //goto nextCol; // queen already placed, board[r][c]=1
+        }
+         
+    }
+    return 0;
+}
