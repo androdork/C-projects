@@ -1,0 +1,54 @@
+#include <iostrea#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int b[3][2];
+    //b[0][0]=99; b[1][1]=77;
+    char c;int d;double e;
+
+    cout<<"    c=char  i=int  d=double"<<endl;
+    cout<<"sizeof(c): "<<sizeof(c)<<" byte size for type "<<typeid(c).name()<<endl;
+    cout<<"sizeof(d): "<<sizeof(d)<<" byte size for type "<<typeid(d).name()<<endl;
+    cout<<"sizeof(e): "<<sizeof(e)<<" byte size for type "<<typeid(e).name()<<endl<<endl;
+
+    cout<<"sizeof(b): "<<sizeof(b)<<" byte size for array b of 3 groups of 2"<<endl;
+    cout<<"sizeof(*b): "<<sizeof(*b)<<" byte size of first group"<<endl;
+    cout<<"sizeof(**b): "<<sizeof(**b)<<" byte size for 1st inner of 1st group"<<endl<<endl;
+
+    cout<<"sizeof(b+1): "<<sizeof(b+1)<<" size of int always??????????"<<endl;
+    cout<<"sizeof(*(b+0)): "<<sizeof(*(b+0))<<" byte size of first group"<<endl;
+    cout<<"sizeof(*(*b+0)): "<<sizeof(*(*b+0))<<" byte size for first group of 2 ints"<<endl<<endl;
+    
+    cout<<" b is: "<<b<<" //b is pointer to whole array"<<endl;
+    cout<<" *b is: "<<*b<<endl;
+    cout<<" *(b+0) is: "<<*(b+0)<<endl;
+    cout<<" *b+1 is: "<<" //pointer b + 1 int = address + 4 bytes"<<endl<<endl;
+
+    cout<<" b is: "<<b<<" //b is pointer to whole array"<<endl;
+    cout<<" &b is : "<<&b<<" //address of pointer array"<<endl;
+    cout<<" &b+1 is : "<<&b+1<<" //address of space after pointer b with size of "<<sizeof(b)<<" bytes - [sizeof(b)]"<<endl;
+    cout<<" b+3 is: "<<b+3<<" //address of space after 3 groups ie after array b with size of "<<3*sizeof(*b)<<" bytes - [sizeof(*b)]"<<endl;
+    cout<<" b+1 is: "<<b+1<<" //address of space after first group ie second group with size of "<<sizeof(*b)<<" bytes - [sizeof(*b)]"<<endl<<endl;
+    
+    cout<<" b is: "<<b<<" //b is pointer to whole array ie b"<<endl;
+    cout<<" *b is: "<<*b<<" //*b is pointer to first group ie b[0]"<<endl;
+    cout<<" **b is: "<<**b<<" //**b is pointer to first of 2 in group ie b[0][0]"<<endl;
+    cout<<" *(*(b+1)+1) is: "<<*(*(b+1)+1)<<" //**b is pointer to second of 2 in group 2 ie b[1][1]"<<endl;
+    cout<<" b[0][0] is: "<<b[0][0]<<" //the value located inside (declared)"<<endl;
+    cout<<" b[0][1] is: "<<b[0][1]<<" //the value located inside (random-wasn't declared)"<<endl;
+    cout<<" b[1][0] is: "<<b[1][0]<<" //the value located inside (random-wasn't declared)"<<endl;
+    cout<<" b[1][1] is: "<<b[1][1]<<" //the value located inside (declared)"<<endl;
+    cout<<" b[2][0] is: "<<b[2][0]<<" //the value located inside (random-wasn't declared)"<<endl;
+    cout<<" b[2][1] is: "<<b[2][1]<<" //the value located inside (random-wasn't declared)"<<endl<<endl;
+
+    cout<<" b+0 is: "<<b+0<<" //address of space after first group ie second group- "<<sizeof(*b)<<" bytes [sizeof(*b)]"<<endl;
+    cout<<" b[0] is: "<<b[0]<<" //"<<endl;
+    
+    //cout<<" ***b is: "<<***b<<endl; //doesnt work
+
+    //cout<<" &(b+1) is : "<<&(b+1)<<endl; // doesnt work
+
+    return 0;
+}
