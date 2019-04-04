@@ -1,0 +1,85 @@
+#include <iostream> 
+#include <cmath> 
+
+using namespace std; 
+/*bool test(int q[], int col);
+    void backtrack(int c); 
+    void print ( int q[]);*/
+    
+    bool test(int q[], int c){//test (all included) 
+        for(int i=0; i<c; i++) {
+            if(q[i]==q[c] || c-i == abs (q[c]-q[i])){//row test OR diagonal test 
+              return false;  //goto nextRow;   
+            }       
+        }
+        return true; //true means tests passed
+    }
+    
+   void backtrack(int c){ //backtrack: 
+        c--; 
+        
+            if(c==-1){
+              cout<<"No more solutions."; 
+              //return 0;
+            } 
+        //goto nextRow; 
+    }
+    
+    void print (int q[]) {
+         
+        cout<<"1d array: "; 
+        for(int i=0;i<8;i++) 
+            cout<<q[i]; 
+        
+            /*for(int i=0;i<8;i++){ 
+                cout<<endl; 
+                for(int j=0;j<8; j++){ 
+                    if(q[j]==i) 
+                    cout<<"1 "; 
+                    else cout<<"0 "; 
+                } 
+            } */
+        cout<<endl<<endl; 
+        //if(board[1][6]==1&&board[5][1]==1) return 0; 
+        
+         
+    }
+
+int main() 
+{ 
+    int q[8], c=0; // arr[column] = row 
+    q[0]=0; //b[0][0]=1 
+    int solution=0; 
+    
+    while(c<9){ //nextCol
+        c++; 
+        if (c==8){
+            solution++; 
+            cout<<"This is solution # "<<solution<<endl;
+            print(q); //goto print;
+            if(solution==111) return 0; //test that limits solutions 
+            backtrack(c); //goto backtrack;
+            if(c==-1) return 0; 
+        }  
+        q[c]=-1; // r=-1 
+    
+    
+        while(q[c]<9){ //nextRow: 
+            q[c]++; //r++
+            if(q[c]==8){
+                q[c]=0;
+                c--;
+                if(c==-1) return 0; 
+                //backtrack(c);//goto backtrack;
+            }
+            else if(test(q, c)) break; //goto nextCol; // queen already placed, board[r][c]=1
+           
+            
+        }
+         
+    }
+  
+
+cout<<"finished program"; 
+    return 0; 
+}
