@@ -1,0 +1,67 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+
+bool test(int cross[], int box) {
+static int position[8][5] = {
+ {-1}, //box 0
+ {0,-1}, //box 1, check box '0'
+ {1,-1}, //box 2, check box '1'
+ {0,1,2,-1}, //box 3, check box '0,1,and 2'
+ {1,2,3,-1}, //box 4
+ {2,4,-1}, //box 5
+ {0,3,4,-1}, //box 6
+ {3,4,5,6,-1}, //box 7
+};
+for(int i=0; i<box; i++){ //row test
+    if(cross[i]==cross[box]) return false; //cross[box] is the placed number
+}
+int i=0;
+while(position[box][i] != -1){
+   if (abs(cross[box]-cross[position[box][i]])==1) return false;
+   i++; 
+}
+return true;
+//fill in 
+} 
+
+void backtrack(int box){ //backtrack: 
+        box--;  
+    }
+
+void print(int cross[]) {//, int cap
+static int count = 0;
+cout << "Solution number: " << ++count << endl;
+cout << " " << cross[1] << cross[2] << endl;
+cout << cross[0] << cross[3] << cross[4] << cross[5] << endl;
+cout << " " << cross[6] << cross[7] << endl<< endl;
+return;
+}
+
+int main() {
+//use the same 1d 8 queens main function
+int cross[8] = {}, box=0;   // Initialize the array to 0.
+cross[box]=1;// Start in the 1st row, 1st column
+
+   while (box >= 0) { // End the loop if you backtrack from the first column
+      box++;// Move to the next column
+      
+      if (box == 8){// If you have passed the last column,
+        print(cross); //return 0; 
+        box--;// Call the print function and backtrack 
+        } 
+      
+       while (box >= 0) {
+             cross[box]++;// Move to the next row
+             if(cross[box]==9){// If you have passed the end of the column, backtrack
+                cross[box]=0;
+                //print(cross);return 0; 
+                box--;
+             }
+             // Otherwise, call the ok function.  If it returns true, go back to the beginning of the outer loop.
+             else if (test(cross, box)) break;
+        }
+    }
+   cout<<"No more solutions."; 
+   return 0;
+}
